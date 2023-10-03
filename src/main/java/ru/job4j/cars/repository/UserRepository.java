@@ -16,10 +16,15 @@ public class UserRepository {
 
     public User create(User user) {
         Session session = sf.openSession();
-        session.beginTransaction();
-        session.save(user);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.beginTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
         return user;
     }
 
@@ -35,8 +40,9 @@ public class UserRepository {
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
-        session.close();
     }
 
     public void delete(int userId) {
@@ -46,38 +52,61 @@ public class UserRepository {
             session.createQuery(
                     "DELETE User WHERE id = :fId")
                     .setParameter("fId", userId);
+            session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
-        session.close();
     }
 
     public List<User> findAllOrderById() {
+        List<User> list = List.of();
         Session session = sf.openSession();
-        return session.createQuery("from User", User.class).list();
+        try {
+            list = session.createQuery("from User ORDER BY id", User.class).list();
+        } finally {
+            session.close();
+        }
+        return list;
     }
 
     public Optional<User> findById(int userId) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("from User as u WHERE u.id = :id", User.class)
-                .setParameter("id", userId);
-        return Optional.ofNullable(query.uniqueResult());
+        Optional<User> rsl;
+        try {
+            rsl = session.createQuery("from User as u WHERE u.id = :id", User.class)
+                    .setParameter("id", userId).uniqueResultOptional();
+        } finally {
+            session.close();
+        }
+        return rsl;
     }
 
     public List<User> findByLikeLogin(String key) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery(
-                "from User as u WHERE u.login LIKE :fKey", User.class)
-                .setParameter("fKey", "%" + key + "%");
+        Query<User> query;
+        try {
+            query = session.createQuery(
+                            "from User as u WHERE u.login LIKE :fKey", User.class)
+                    .setParameter("fKey", "%" + key + "%");
+        } finally {
+            session.close();
+        }
         return query.list();
     }
 
     public Optional<User> findByLogin(String login) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery(
-                "from User as u WHERE u.login = :login", User.class)
-                .setParameter("login", login);
-        return Optional.ofNullable(query.uniqueResult());
+        Optional<User> rsl;
+        try {
+            rsl = session.createQuery(
+                            "from User as u WHERE u.login = :login", User.class)
+                    .setParameter("login", login).uniqueResultOptional();
+        } finally {
+            session.close();
+        }
+        return rsl;
     }
 
 }
