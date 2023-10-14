@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,13 +18,25 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
+
     private String description;
+
     private LocalDateTime created;
+
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
     private User user;
+
     @OneToMany
     @JoinColumn(name = "price_history_id")
     private PriceHistory priceHistory;
+
+    @ManyToMany
+    @JoinTable(
+            name = "participates",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    )
+    private List<User> participates = new ArrayList<>();
 
 }
