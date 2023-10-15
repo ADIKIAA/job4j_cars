@@ -29,7 +29,7 @@ public class Post {
 
     @OneToMany
     @JoinColumn(name = "price_history_id")
-    private PriceHistory priceHistory;
+    private List<PriceHistory> priceHistory = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
