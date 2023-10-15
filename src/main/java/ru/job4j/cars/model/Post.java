@@ -41,4 +41,8 @@ public class Post {
     )
     private Set<User> participates = new LinkedHashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
+
 }
