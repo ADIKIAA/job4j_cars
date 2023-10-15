@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -19,6 +21,10 @@ public class Car {
     private int id;
 
     private String name;
+
+    @OneToMany
+    @JoinColumn(name = "photo_id")
+    private List<Photo> photo = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "engine_id")
