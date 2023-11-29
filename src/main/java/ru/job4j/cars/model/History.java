@@ -8,19 +8,17 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "price_history")
+@Table(name = "history")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PriceHistory {
+public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 
-    private int before;
+    private LocalDateTime startAt;
 
-    private int after;
-
-    private LocalDateTime created;
+    private LocalDateTime endAt;
 
 }
