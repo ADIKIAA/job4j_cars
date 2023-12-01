@@ -42,8 +42,7 @@ public class Car {
     )
     private Set<Owner> owners = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "id")
-    private History history;
+    @OneToMany(mappedBy = "car")
+    private Set<OwnershipHistory> history = new HashSet<>();
 
 }
