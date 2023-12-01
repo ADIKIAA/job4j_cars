@@ -23,7 +23,7 @@ public class Car {
     private String name;
 
     @OneToMany
-    @JoinColumn(name = "photo_id")
+    @JoinColumn(name = "car_id")
     private List<Photo> photo = new ArrayList<>();
 
     @ManyToOne

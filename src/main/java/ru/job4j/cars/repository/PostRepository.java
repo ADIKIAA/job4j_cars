@@ -6,6 +6,7 @@ import ru.job4j.cars.model.Post;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
@@ -13,16 +14,29 @@ public class PostRepository {
 
     private final CrudRepository crudRepository;
 
+    public Post save(Post post) {
+        crudRepository.run(session -> session.persist(post));
+        return post;
+    }
+
+    public Optional<Post> findById(int id) {
+        return crudRepository.optional(
+                "from Post WHERE id = :id",
+                Post.class,
+                Map.of("id", id)
+        );
+    }
+
     public List<Post> findAllForLastDay() {
         return crudRepository.query(
-                "from Post WHERE created = current_date",
+                "from Post WHERE created >= current_date()",
                 Post.class
         );
     }
 
     public List<Post> findAllWithPhoto() {
         return crudRepository.query(
-                "from Post WHERE car.photo > 0",
+                "from Post WHERE car.photo.size > 0",
                 Post.class
         );
     }
