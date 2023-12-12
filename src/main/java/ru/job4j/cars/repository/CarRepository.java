@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Car;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,6 +36,17 @@ public class CarRepository {
                 Car.class,
                 Map.of("id", id)
         );
+    }
+
+    public Car getCarWithPhoto(int id) {
+        return crudRepository.optional("""
+                SELECT c FROM Car c
+                LEFT JOIN FETCH c.photo
+                WHERE c.id = :id
+                """,
+                Car.class,
+                Map.of("id", id)
+        ).get();
     }
 
 }

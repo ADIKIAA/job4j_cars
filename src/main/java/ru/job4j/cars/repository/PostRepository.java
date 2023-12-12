@@ -19,6 +19,13 @@ public class PostRepository {
         return post;
     }
 
+    public List<Post> findAll() {
+        return crudRepository.query(
+                "from Post",
+                Post.class
+        );
+    }
+
     public Optional<Post> findById(int id) {
         return crudRepository.optional(
                 "from Post WHERE id = :id",
@@ -41,11 +48,18 @@ public class PostRepository {
         );
     }
 
-    public List<Post> findByCarMark(String name) {
+    public List<Post> findByCarMark(String model) {
         return crudRepository.query(
-                "from Post WHERE car.name = :name",
+                "from Post WHERE car.model = :model",
                 Post.class,
-                Map.of("name", name)
+                Map.of("model", model)
+        );
+    }
+
+    public void changeStatus(int id, boolean status) {
+        crudRepository.run(
+                "UPDATE Post SET status = :status WHERE id = :id",
+                Map.of("id", id, "status", !status)
         );
     }
 

@@ -25,6 +25,10 @@ public class Post {
 
     private LocalDateTime created;
 
+    private boolean status;
+
+    private int price;
+
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
     private User user;

@@ -1,20 +1,30 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.User;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
+@Repository
 @AllArgsConstructor
 public class UserRepository {
 
     private final CrudRepository crudRepository;
 
-    public User create(User user) {
-        crudRepository.run(session -> session.persist(user));
-        return user;
+    public Optional<User> create(User user) {
+        Optional<User> rsl = Optional.empty();
+        try {
+            crudRepository.run(session -> session.persist(user));
+            rsl = Optional.of(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rsl;
     }
 
     public void update(User user) {
@@ -26,6 +36,14 @@ public class UserRepository {
                 "delete from User where id = :fId",
                 Map.of("fId", userId)
         );
+    }
+
+    public Optional<User> findByLoginAndPassword(String login, String password) {
+        return crudRepository.optional(
+                "from User WHERE login = :login AND password = :password",
+                User.class,
+                Map.of("login", login,
+                        "password", password));
     }
 
     public List<User> findAllOrderById() {

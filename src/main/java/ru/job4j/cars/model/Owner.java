@@ -18,6 +18,7 @@ public class Owner {
     @EqualsAndHashCode.Include
     private int id;
 
+    @Column(name = "name")
     private String name;
 
     @ManyToOne

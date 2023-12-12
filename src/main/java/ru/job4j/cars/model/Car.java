@@ -20,7 +20,13 @@ public class Car {
     @EqualsAndHashCode.Include
     private int id;
 
-    private String name;
+    private String model;
+
+    @Enumerated(EnumType.STRING)
+    private Brand brand;
+
+    @Enumerated(EnumType.STRING)
+    private Bodywork bodywork;
 
     @OneToMany
     @JoinColumn(name = "car_id")
@@ -40,7 +46,7 @@ public class Car {
             joinColumns = {@JoinColumn(name = "car_id")},
             inverseJoinColumns = {@JoinColumn(name = "owner_id")}
     )
-    private Set<Owner> owners = new HashSet<>();
+    private List<Owner> owners;
 
     @OneToMany(mappedBy = "car")
     private Set<OwnershipHistory> history = new HashSet<>();
