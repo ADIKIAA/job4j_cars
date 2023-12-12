@@ -78,7 +78,7 @@ class CarRepositoryTest {
     @Test
     public void saveCarThenFindIt() {
         Car car = new Car();
-        car.setName("testName");
+        car.setModel("testName");
         car.setEngine(ENGINE);
         car.setOwner(OWNER);
 
@@ -91,11 +91,11 @@ class CarRepositoryTest {
     @Test
     public void saveSomeCarThenDeleteOneAndFindHim() {
         Car car1 = new Car();
-        car1.setName("testName_1");
+        car1.setModel("testName_1");
         car1.setEngine(ENGINE);
         car1.setOwner(OWNER);
         Car car2 = new Car();
-        car2.setName("testName_2");
+        car2.setModel("testName_2");
         car2.setEngine(ENGINE);
         car2.setOwner(OWNER);
 
@@ -112,19 +112,19 @@ class CarRepositoryTest {
     @Test
     public void saveSomeCarThenUpdateOneAndFindHim() {
         Car car = new Car();
-        car.setName("testName");
+        car.setModel("testName");
         car.setEngine(ENGINE);
         car.setOwner(OWNER);
         String newName = "newName";
 
         carRepository.create(car);
 
-        car.setName(newName);
+        car.setModel(newName);
         carRepository.update(car);
 
         var updatedCar = carRepository.findById(car.getId()).get();
 
-        assertThat(updatedCar.getName()).isEqualTo(newName);
+        assertThat(updatedCar.getModel()).isEqualTo(newName);
     }
 
 }

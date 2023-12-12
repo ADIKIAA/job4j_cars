@@ -57,11 +57,11 @@ class PostRepositoryTest {
             userRepository.create(USER);
 
             CARWITHPHOTO.getPhoto().add(photo);
-            CARWITHPHOTO.setName("Mark_1");
+            CARWITHPHOTO.setModel("Mark_1");
             CARWITHPHOTO.setEngine(engine);
             carRepository.create(CARWITHPHOTO);
 
-            CARWITHOUTPHOTO.setName("Mark_2");
+            CARWITHOUTPHOTO.setModel("Mark_2");
             CARWITHOUTPHOTO.setEngine(engine);
             carRepository.create(CARWITHOUTPHOTO);
         } catch (Throwable e) {
