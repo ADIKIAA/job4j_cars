@@ -35,10 +35,10 @@ class CarRepositoryTest {
                     .buildMetadata().buildSessionFactory();
 
             CrudRepository crudRepository = new CrudRepository(sessionFactory);
-            carRepository = new CarRepository(crudRepository);
-            EngineRepository engineRepository = new EngineRepository(crudRepository);
-            OwnerRepository ownerRepository = new OwnerRepository(crudRepository);
-            UserRepository userRepository = new UserRepository(crudRepository);
+            carRepository = new HbmCarRepository(crudRepository);
+            EngineRepository engineRepository = new HbmEngineRepository(crudRepository);
+            OwnerRepository ownerRepository = new HbmOwnerRepository(crudRepository);
+            UserRepository userRepository = new HbmUserRepository(crudRepository);
 
             ENGINE.setName("engine");
             engineRepository.create(ENGINE);

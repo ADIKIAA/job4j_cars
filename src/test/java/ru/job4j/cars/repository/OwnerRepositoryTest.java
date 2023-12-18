@@ -32,8 +32,8 @@ class OwnerRepositoryTest {
                     .buildMetadata().buildSessionFactory();
 
             CrudRepository crudRepository = new CrudRepository(sessionFactory);
-            UserRepository userRepository = new UserRepository(crudRepository);
-            ownerRepository = new OwnerRepository(crudRepository);
+            UserRepository userRepository = new HbmUserRepository(crudRepository);
+            ownerRepository = new HbmOwnerRepository(crudRepository);
 
             USER.setLogin("test_login");
             USER.setPassword("password");

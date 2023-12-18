@@ -38,11 +38,11 @@ class PostRepositoryTest {
                     .buildMetadata().buildSessionFactory();
 
             CrudRepository crudRepository = new CrudRepository(sessionFactory);
-            UserRepository userRepository = new UserRepository(crudRepository);
-            PhotoRepository photoRepository = new PhotoRepository(crudRepository);
-            CarRepository carRepository = new CarRepository(crudRepository);
-            EngineRepository engineRepository = new EngineRepository(crudRepository);
-            postRepository = new PostRepository(crudRepository);
+            UserRepository userRepository = new HbmUserRepository(crudRepository);
+            PhotoRepository photoRepository = new HbmPhotoRepository(crudRepository);
+            CarRepository carRepository = new HbmCarRepository(crudRepository);
+            EngineRepository engineRepository = new HbmEngineRepository(crudRepository);
+            postRepository = new HbmPostRepository(crudRepository);
 
             Engine engine = new Engine();
             engine.setName("engine");

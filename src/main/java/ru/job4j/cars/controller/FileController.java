@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.job4j.cars.service.PhotoService;
+import ru.job4j.cars.service.SimplePhotoService;
 
 @RestController
 @RequestMapping("/files")
 @AllArgsConstructor
 public class FileController {
 
-    private final PhotoService photoService;
+    private final SimplePhotoService photoService;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {

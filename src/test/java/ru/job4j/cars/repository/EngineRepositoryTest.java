@@ -31,7 +31,7 @@ class EngineRepositoryTest {
                     .buildMetadata().buildSessionFactory();
 
             crudRepository = new CrudRepository(sessionFactory);
-            engineRepository = new EngineRepository(crudRepository);
+            engineRepository = new HbmEngineRepository(crudRepository);
 
         } catch (Throwable e) {
             throw new ExceptionInInitializerError(e);

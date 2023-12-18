@@ -1,45 +1,24 @@
 package ru.job4j.cars.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Post;
-import ru.job4j.cars.repository.PostRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
-public class PostService {
+public interface PostService {
 
-    private final PostRepository postRepository;
+    Post save(Post post);
 
-    public Post save(Post post) {
-        return postRepository.save(post);
-    }
+    List<Post> findAll();
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
-    }
+    Optional<Post> findById(int id);
 
-    public Optional<Post> findById(int id) {
-        return postRepository.findById(id);
-    }
+    List<Post> findAllForLastDay();
 
-    public List<Post> findAllForLastDay() {
-        return postRepository.findAllForLastDay();
-    }
+    List<Post> findAllWithPhoto();
 
-    public List<Post> findAllWithPhoto() {
-        return postRepository.findAllWithPhoto();
-    }
+    List<Post> findByCarMark(String name);
 
-    public List<Post> findByCarMark(String name) {
-        return postRepository.findByCarMark(name);
-    }
-
-    public void changeStatus(int id, boolean status) {
-        postRepository.changeStatus(id, status);
-    }
+    void changeStatus(int id, boolean status);
 
 }

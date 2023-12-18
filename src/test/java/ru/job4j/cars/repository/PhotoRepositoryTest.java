@@ -31,7 +31,7 @@ class PhotoRepositoryTest {
                     .buildMetadata().buildSessionFactory();
 
             crudRepository = new CrudRepository(sessionFactory);
-            photoRepository = new PhotoRepository(crudRepository);
+            photoRepository = new HbmPhotoRepository(crudRepository);
 
         } catch (Throwable e) {
             throw new ExceptionInInitializerError(e);

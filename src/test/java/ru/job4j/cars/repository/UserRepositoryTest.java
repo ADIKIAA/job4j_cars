@@ -33,7 +33,7 @@ class UserRepositoryTest {
                     .buildMetadata().buildSessionFactory();
 
             crudRepository = new CrudRepository(sessionFactory);
-            userRepository = new UserRepository(crudRepository);
+            userRepository = new HbmUserRepository(crudRepository);
 
         } catch (Throwable e) {
             throw new ExceptionInInitializerError(e);

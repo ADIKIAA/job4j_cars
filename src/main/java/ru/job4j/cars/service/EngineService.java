@@ -1,32 +1,17 @@
 package ru.job4j.cars.service;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import ru.job4j.cars.model.Engine;
-import ru.job4j.cars.repository.EngineRepository;
 
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
-public class EngineService {
+public interface EngineService {
 
-    private final EngineRepository engineRepository;
+    Engine create(Engine engine);
 
-    public Engine create(Engine engine) {
-        return engineRepository.create(engine);
-    }
+    void update(Engine engine);
 
-    public void update(Engine engine) {
-        engineRepository.update(engine);
-    }
+    void delete(int id);
 
-    public void delete(int id) {
-        engineRepository.delete(id);
-    }
-
-    public Optional<Engine> findById(int id) {
-        return engineRepository.findById(id);
-    }
+    Optional<Engine> findById(int id);
 
 }

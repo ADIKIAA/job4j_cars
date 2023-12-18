@@ -26,7 +26,7 @@ public class PostController {
 
     private final EngineService engineService;
 
-    private final PhotoService photoService;
+    private final SimplePhotoService photoService;
 
     private final OwnerService ownerService;
 
@@ -59,17 +59,12 @@ public class PostController {
     public String createPost(@ModelAttribute Post post,
                              @ModelAttribute Car car,
                              @ModelAttribute Engine engine,
-                             @RequestParam String ownerName,
                              @SessionAttribute User user,
                              @RequestParam MultipartFile[] files) throws IOException {
         post.setUser(user);
         post.setCreated(LocalDateTime.now());
         Owner owner = new Owner();
-        if (ownerName.isEmpty()) {
-            owner.setName(user.getLogin());
-        } else {
-            owner.setName(ownerName);
-        }
+        owner.setName(user.getLogin());
         owner.setUser(user);
         ownerService.create(owner);
         engineService.create(engine);
@@ -91,7 +86,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public String getOne(Model model, @PathVariable int id) {
+    public String getById(Model model, @PathVariable int id) {
         Optional<Post> optionalPost = postService.findById(id);
         if (optionalPost.isEmpty()) {
             model.addAttribute("message", "Объявление с указанныи id не найдено");
